@@ -136,17 +136,23 @@ public class SLL{
         if (head == null) {
             return;
         }
-
+    
         if (head == node) {
             deleteHead();
+            if (head == null) {
+                tail = null;
+            }
             return;
         }
-
+    
         SNode current = head;
         while (current.next != null) {
             if (current.next == node) {
                 current.next = current.next.next;
                 size--;
+                if (current.next == null) {
+                    tail = current;
+                }
                 return;
             }
             current = current.next;
