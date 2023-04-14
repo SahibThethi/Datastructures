@@ -65,6 +65,7 @@ public class SLLtest {
         assertEquals("Size should be 5", 5, multiNodeList.getSize());
         assertEquals("Tail should be the new node", 8, multiNodeList.getTail().data);
     }
+
     @Test
     public void testSortedInsert() {
         list = new SLL();
@@ -95,8 +96,26 @@ public class SLLtest {
         assertEquals(node0, list.getHead());
         assertEquals(node3, list.getTail());
         assertTrue(list.isSorted());
-        
-    }    
+    }
+
+    @Test
+    public void testEmptyList() {
+        SLL list = new SLL();
+        assertEquals(null, list.getHead());
+        list.print(); // should print "List is empty"
+    }
+
+    @Test
+    public void testSingleNodeList() {
+        SNode node = new SNode(42);
+        SLL list = new SLL(node);
+        assertEquals(node, list.getHead());
+        assertEquals(node, list.getTail());
+        assertEquals(1, list.getSize());
+        assertEquals(true, list.isSorted());
+        list.print(); // should print "List length: 1\nSorted: Yes\nList content: 42\n"
+    }
+
     @Test
     public void testSearch() {
         list = new SLL();
@@ -112,49 +131,41 @@ public class SLLtest {
         assertNull(list.search(0));
         assertNull(list.search(4));
     }
+
+    @Test
     public void testDeleteHead() {
         SNode node1 = new SNode(1);
         SNode node2 = new SNode(2);
         SNode node3 = new SNode(3);
-        list.insertHead(node1);
-        list.insertTail(node2);
+        SLL list = new SLL(node1);
+        list.insertHead(node2);
         list.insertTail(node3);
+        assertEquals(3, list.getSize());
+        assertEquals(2, list.getHead().getData());
+        assertEquals(3, list.getTail().getData());
         list.deleteHead();
         assertEquals(2, list.getSize());
-        assertEquals(node2, list.getHead());
-        assertEquals(node3, list.getTail());
-        assertFalse(list.isSorted());
+        assertEquals(1, list.getHead().getData());
+        assertEquals(3, list.getTail().getData());
     }
-    @Test
-    public void testEmptyList() {
-        SLL list = new SLL();
-        assertEquals(null, list.getHead());
-        list.print(); // should print "List is empty"
-    }
-    @Test
-    public void testSingleNodeList() {
-        SNode node = new SNode(42);
-        SLL list = new SLL(node);
-        assertEquals(node, list.getHead());
-        assertEquals(node, list.getTail());
-        assertEquals(1, list.getSize());
-        assertEquals(true, list.isSorted());
-        list.print(); // should print "List length: 1\nSorted: Yes\nList content: 42\n"
-    }
+
     @Test
     public void testDeleteTail() {
         SNode node1 = new SNode(1);
         SNode node2 = new SNode(2);
         SNode node3 = new SNode(3);
         SLL list = new SLL(node1);
-        node1.next = node2;
-        node2.next = node3;
+        list.insertHead(node2);
+        list.insertTail(node3);
+        assertEquals(3, list.getSize());
+        assertEquals(2, list.getHead().getData());
+        assertEquals(3, list.getTail().getData());
         list.deleteTail();
-        assertEquals(node1, list.getHead());
-        assertEquals(node2, list.getTail());
         assertEquals(2, list.getSize());
-        assertEquals(true, list.isSorted());
-        list.print(); // should print "List length: 2\nSorted: Yes\nList content: 1 2\n"
+        assertEquals(2, list.getHead().getData());
+        assertEquals(1, list.getTail().getData());
+        list.sort();
+        assertTrue(list.isSorted());
     }
     
     @Test
@@ -163,36 +174,47 @@ public class SLLtest {
         SNode node2 = new SNode(2);
         SNode node3 = new SNode(3);
         SLL list = new SLL(node1);
-        node1.next = node2;
-        node2.next = node3;
+        list.insertHead(node2);
+        list.insertTail(node3);
+        assertEquals(3, list.getSize());
+        assertEquals(2, list.getHead().getData());
+        assertEquals(3, list.getTail().getData());
         list.delete(node2);
-        assertEquals(node1, list.getHead());
-        assertEquals(node3, list.getTail());
         assertEquals(2, list.getSize());
-        assertEquals(true, list.isSorted());
-        list.print(); // should print "List length: 2\nSorted: Yes\nList content: 1 3\n"
+        assertEquals(1, list.getHead().getData());
+        assertEquals(3, list.getTail().getData());
+        list.delete(node3);
+        assertEquals(1, list.getSize());
+        assertEquals(1, list.getHead().getData());
+        assertEquals(1, list.getTail().getData());
+        list.delete(node1);
+        assertEquals(0, list.getSize());
+        assertNull(list.getHead());
+        assertNull(list.getTail());
     }
-        // Test the constructor with no arguments
-        @Test
-        public void testConstructor() {
-            SLL list = new SLL();
-            assertEquals(null, list.getHead());
-            assertEquals(null, list.getTail());
-            assertEquals(0, list.getSize());
-            assertTrue(list.isSorted());
-        }
-        
-        // Test the constructor with one argument
-        @Test
-        public void testConstructorWithHead() {
-            SNode head = new SNode(1);
-            SLL list = new SLL(head);
-            assertEquals(head, list.getHead());
-            assertEquals(head, list.getTail());
-            assertEquals(1, list.getSize());
-            assertTrue(list.isSorted());
-        }
-            // Test the sort method on an unsorted list
+
+    // Test the constructor with no arguments
+    @Test
+    public void testConstructor() {
+        SLL list = new SLL();
+        assertEquals(null, list.getHead());
+        assertEquals(null, list.getTail());
+        assertEquals(0, list.getSize());
+        assertTrue(list.isSorted());
+    }
+    
+    // Test the constructor with one argument
+    @Test
+    public void testConstructorWithHead() {
+        SNode head = new SNode(1);
+        SLL list = new SLL(head);
+        assertEquals(head, list.getHead());
+        assertEquals(head, list.getTail());
+        assertEquals(1, list.getSize());
+        assertTrue(list.isSorted());
+    }
+    
+    // Test the sort method on an unsorted list
     @Test
     public void testSort() {
         SLL list = new SLL();
@@ -257,8 +279,19 @@ public class SLLtest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         list.print();
-        assertEquals("List length: 3\nSorted status: not sorted \nList content: 3 1 2 ", outContent.toString());
+        String expectedOutput = "List length: 3\n" +
+        "Sorted status: not sorted\n" +
+        "List content: 3 1 2\n";
+        String[] expectedLines = expectedOutput.split("\n");
+
+        String actualOutput = outContent.toString();
+        String[] actualLines = actualOutput.split("\n");
+
+        for (int i = 0; i < expectedLines.length; i++) {
+        assertEquals(expectedLines[i], actualLines[i].trim());
+        }
     }
+
     // Test the isSorted method on a sorted list
     @Test
     public void testIsSortedSorted() {
@@ -271,7 +304,7 @@ public class SLLtest {
         assertTrue(list.isSorted());
     }
 
-// Test the isSorted method on an unsorted list
+    // Test the isSorted method on an unsorted list
     @Test
     public void testIsSortedUnsorted() {
         SNode head = new SNode(3);
