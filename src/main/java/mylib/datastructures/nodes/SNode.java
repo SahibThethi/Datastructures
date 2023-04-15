@@ -1,4 +1,4 @@
-package main.java.mylib.datastructures.nodes;
+package mylib.datastructures.nodes;
 
 public class SNode {
     public int data;
@@ -25,9 +25,3 @@ public class SNode {
         this.next = next;
     }
 }
-
-
-
-
-
-

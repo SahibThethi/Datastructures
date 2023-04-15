@@ -1,6 +1,5 @@
-package main.java.mylib.datastructures.linear;
-
-import main.java.mylib.datastructures.nodes.*;
+package mylib.datastructures.linear;
+import mylib.datastructures.nodes.*;
 
 public class CDLL extends DLL {
     private DNode current;

@@ -1,6 +1,5 @@
-package main.java.mylib.datastructures.linear;
-import main.java.mylib.datastructures.nodes.*;
-
+package mylib.datastructures.linear;
+import mylib.datastructures.nodes.*;
 
 public class DLL{
     protected DNode head;
@@ -14,7 +13,6 @@ public class DLL{
         this.size = 0;
         this.sorted = true;
     }
-
     public DLL(DNode node) {
         this.head = node;
         this.tail = node;

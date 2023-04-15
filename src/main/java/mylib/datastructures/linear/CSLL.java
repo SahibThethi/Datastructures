@@ -1,13 +1,10 @@
-package main.java.mylib.datastructures.linear;
-import main.java.mylib.datastructures.nodes.*;
-
+package mylib.datastructures.linear;
+import mylib.datastructures.nodes.*;
 
 public class CSLL extends SLL {
-
         public CSLL() {
             super();
         }
-    
         public CSLL(SNode head) {
             super(head);
             head.setNext(head);
@@ -18,13 +15,11 @@ public class CSLL extends SLL {
             super.insertHead(node);
             this.tail.setNext(this.head);
         }
-    
         @Override
         public void insertTail(SNode node) {
             super.insertTail(node);
             this.tail.setNext(this.head);
         }
-    
         @Override
         public void insert(SNode node, int position) {
             super.insert(node, position);
@@ -39,8 +34,7 @@ public class CSLL extends SLL {
             this.tail.setNext(this.head);
             size--;
         }
-    
-        
+
         public SNode search(int data) {
             if (head == null) {
                 throw new NullPointerException("List is empty");
@@ -191,4 +185,3 @@ public class CSLL extends SLL {
             size++;
         }        
 }
-

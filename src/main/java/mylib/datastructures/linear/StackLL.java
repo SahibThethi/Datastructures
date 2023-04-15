@@ -1,5 +1,5 @@
-package main.java.mylib.datastructures.linear;
-import main.java.mylib.datastructures.nodes.*;
+package mylib.datastructures.linear;
+import mylib.datastructures.nodes.*;
 
 public class StackLL extends SLL {
 
@@ -9,6 +9,7 @@ public class StackLL extends SLL {
     public StackLL(SNode head) {
         super(head);
     }
+    
     @Override
     public void insertHead(SNode node) {
         // empty body method to prevent usage in queue
@@ -41,7 +42,7 @@ public class StackLL extends SLL {
     public void sort() {
         // empty body method to prevent usage in stack
     }
-    
+
     public void push(SNode node) {
         super.insertHead(node);
     }
