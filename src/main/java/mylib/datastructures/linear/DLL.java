@@ -72,7 +72,7 @@ public class DLL{
         size++;
         sorted = false;
     }
-    private boolean isSorted() {
+    public boolean isSorted() {
         DNode curr = head;
         while (curr != null && curr.next != null) {
             if (curr.data > curr.next.data) {
@@ -140,8 +140,7 @@ public class DLL{
 
     public void deleteHead() {
         if (head == null) {
-            System.out.println("List is empty.");
-            return;
+            throw new IndexOutOfBoundsException("List is empty");
         }
         head = head.getNext();
         if (head != null) {
@@ -152,32 +151,39 @@ public class DLL{
         size--;
     }
     public void deleteTail() {
-        if (tail != null) {
-            if (head == tail) {
-                head = null;
-                tail = null;
-            } else {
-                tail = tail.prev;
-                tail.next = null;
-            }
+        if (head == null) {
+            throw new IndexOutOfBoundsException("List is empty");
         }
+        DNode curr = head;
+        while (curr.next != tail) {
+            curr = curr.next;
+        }
+        curr.next = null;
+        tail = curr;
+        size--;
     }
 
     public void delete(DNode node) {
-        if (node == head) {
-            head = node.next;
-            if (head != null) {
-                head.prev = null;
-            }
-        } else if (node == tail) {
-            tail = node.prev;
-            if (tail != null) {
-                tail.next = null;
-            }
-        } else {
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
+        if (head == null) {
+            throw new IndexOutOfBoundsException("List is empty");
         }
+        if (head == node) {
+            deleteHead();
+            return;
+        }
+        if (tail == node) {
+            deleteTail();
+            return;
+        }
+        DNode current = head;
+        while (current.next != null && current.next != node) {
+            current = current.next;
+        }
+        if (current.next == null) {
+            throw new IndexOutOfBoundsException("Node could not be found");
+        }
+        current.next = current.next.next;
+        size--;
     }
     
     public void clear() {
@@ -189,15 +195,26 @@ public class DLL{
         return size;
     }
     public void print() {
-        System.out.print("List length: " + getLength());
-        System.out.print(", Sorted status: " + isSorted());
-        System.out.print(", List content: ");
+        System.out.println("List length: " + getLength());
+        System.out.println("Sorted status: " + isSorted());
+        System.out.print("List content: ");
         DNode curr = head;
         while (curr != null) {
             System.out.print(curr.data + " ");
             curr = curr.next;
         }
         System.out.println();
+    }
+
+    public DNode getHead() {
+        return this.head;
+    }
+    public DNode getTail() {
+        return this.tail;
+    }
+
+    public int getSize() {
+        return this.size;
     }
 
 }

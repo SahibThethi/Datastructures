@@ -207,7 +207,7 @@ public class CDLL extends DLL {
             }
         }
     
-        private boolean isSorted() {
+        public boolean isSorted() {
             if (this.head == null) {
                 return true;
             }
