@@ -216,5 +216,11 @@ public class DLL{
     public int getSize() {
         return this.size;
     }
+    public boolean isEmpty() {
+        if (head == null) {
+            return true;
+        }
+        return false;
+    }
 
 }

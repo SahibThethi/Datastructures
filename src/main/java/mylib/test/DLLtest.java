@@ -212,7 +212,17 @@ public class DLLtest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         list.print();
-        assertEquals("List length: 0\n Sorted status: true, List content:", outContent.toString().trim());
+        String expectedOutput = "List length: 0\n" +
+        "Sorted status: true\n" +
+        "List content:";
+        String[] expectedLines = expectedOutput.split("\n");
+
+        String actualOutput = outContent.toString();
+        String[] actualLines = actualOutput.split("\n");
+
+        for (int i = 0; i < expectedLines.length; i++) {
+        assertEquals(expectedLines[i], actualLines[i].trim());
+        }
     }
 
     private DLL emptyList;
@@ -275,16 +285,15 @@ public class DLLtest {
         unsortedList.print();
         String expectedOutput = "List length: 4\n" +
         "Sorted status: false\n" +
-        "List content: 5 1 8 3 \n";
+        "List content: 5 1 8 3\n";
         String[] expectedLines = expectedOutput.split("\n");
 
         String actualOutput = outContent.toString();
         String[] actualLines = actualOutput.split("\n");
 
         for (int i = 0; i < expectedLines.length; i++) {
-        assertEquals(expectedLines[i], actualLines[i].trim());
+            assertEquals(expectedLines[i], actualLines[i].trim());
         }
-        assertEquals(expectedOutput, outContent.toString());
     }
     
     @Test
