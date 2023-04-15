@@ -6,34 +6,29 @@ public class CSLL extends SLL {
 
         public CSLL() {
             super();
-            this.size = 0;
         }
     
         public CSLL(SNode head) {
             super(head);
             head.setNext(head);
-            this.size = 1;
         }
     
         @Override
         public void insertHead(SNode node) {
             super.insertHead(node);
             this.tail.setNext(this.head);
-            size++;
         }
     
         @Override
         public void insertTail(SNode node) {
             super.insertTail(node);
             this.tail.setNext(this.head);
-            size++;
         }
     
         @Override
         public void insert(SNode node, int position) {
             super.insert(node, position);
             this.tail.setNext(this.head);
-            size++;
         }
     
         public void deleteHead() {
@@ -65,6 +60,12 @@ public class CSLL extends SLL {
                 throw new NullPointerException("List is empty");
             }
             SNode curr = this.head;
+            if (this.head == this.tail) {
+                this.head = null;
+                this.tail = null;
+                size--;
+                return;
+            }
             while (curr.getNext() != this.tail) {
                 curr = curr.getNext();
             }
@@ -77,11 +78,27 @@ public class CSLL extends SLL {
             if (this.head == null) {
                 throw new NullPointerException("List is empty");
             }
+        
+            if (this.head == node) {
+                this.head = node.getNext();
+                if (this.tail == node) {
+                    this.tail = null;
+                }
+                size--;
+                if (size == 0) {
+                    this.head = null;
+                    this.tail = null;
+                }
+                return;
+            }
             SNode curr = this.head;
             while (curr.getNext() != node) {
                 curr = curr.getNext();
             }
             curr.setNext(node.getNext());
+            if (node == this.tail) {
+                this.tail = curr;
+            }
             size--;
         }
     
@@ -144,26 +161,34 @@ public class CSLL extends SLL {
             System.out.println(curr.data);
         }
         
-    
         public void sortedInsert(SNode node) {
             if (this.head == null) {
-                throw new NullPointerException("List is empty");
+                this.head = node;
+                this.tail = node;
+                node.setNext(node);
+                size++;
+                return;
             }
+        
             SNode curr = this.head;
-            while (curr.getNext() != this.head) {
-                if (curr.data < node.data && curr.getNext().data > node.data) {
+            do {
+                if (curr.data <= node.data && (curr.getNext().data >= node.data || curr.getNext().data < curr.data)) {
                     node.setNext(curr.getNext());
                     curr.setNext(node);
+                    if (curr == this.tail) {
+                        this.tail = node;
+                    }
                     size++;
                     return;
                 }
                 curr = curr.getNext();
-            }
-            if (curr.data < node.data) {
-                node.setNext(curr.getNext());
-                curr.setNext(node);
-                size++;
-            }
-        }
+            } while (curr != this.head);
+        
+            // if we reach this point, it means the new node should be inserted at the head
+            node.setNext(this.head);
+            this.head = node;
+            this.tail.setNext(node);
+            size++;
+        }        
 }
 

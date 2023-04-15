@@ -1,11 +1,11 @@
-package mylib;
+package main.java.mylib.test;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import mylib.datastructures.linear.*;
-import mylib.datastructures.nodes.*;
+import main.java.mylib.datastructures.linear.*;
+import main.java.mylib.datastructures.nodes.*;
 
 public class StackLLTest {
   private StackLL stack;
