@@ -1,51 +1,47 @@
 package main.java.mylib.datastructures.linear;
 import main.java.mylib.datastructures.nodes.*;
 
-public class QueueLL extends SLL{
+public class QueueLL extends SLL {
 
-    public QueueLL(){
+    public QueueLL() {
         super();
     }
-
-    public QueueLL(SNode head){
+    public QueueLL(SNode head) {
         super(head);
     }
 
     @Override
     public void insertHead(SNode node) {
-
+        // empty body method to prevent usage in queue
     }
     @Override
-    public void insertTail(SNode node){
-
+    public void insertTail(SNode node) {
+        // empty body method to prevent usage in queue
     }
     @Override
-    public void insert(SNode node, int position){
-
+    public void insert(SNode node, int position) {
+        // empty body method to prevent usage in queue
     }
     @Override
     public void sortedInsert(SNode node) {
-
+        // empty body method to prevent usage in queue
     }
     @Override
     public void deleteHead() {
-
+        // empty body method to prevent usage in queue
     }
     @Override
     public void deleteTail() {
-
+        // empty body method to prevent usage in queue
     }
     @Override
     public void sort() {
+        // empty body method to prevent usage in queue
+    }
 
-    }
-    public SNode peek() {
-        return this.head;
-    }
     public void enqueue(SNode node) {
         super.insertTail(node);
     }
-
     public SNode dequeue() {
         SNode node = null;
         if (head != null) {
@@ -54,10 +50,23 @@ public class QueueLL extends SLL{
         }
         return node;
     }
-    @Override
-    public void print() {
-        System.out.print("Queue: ");
-        super.print();
+    public SNode peek() {
+        return this.head;
     }
 
+    @Override
+    public void print() {
+        System.out.print("Front: ");
+        SNode current = head;
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" -> ");
+            } else {
+                System.out.print(" -> null");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
 }
