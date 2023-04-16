@@ -2,7 +2,7 @@ package mylib.datastructures.trees;
 import mylib.datastructures.nodes.TNode;
 
 public class BST {
-  public TNode root;
+  private TNode root;
 
   public BST() {
     root = null;
@@ -177,6 +177,10 @@ public class BST {
   }
 
   public void printBF() {
+    printBF(root);
+  }
+
+  public void printBF(TNode root) {
     int h = height(root);
     for (int i = 1; i <= h; i++) {
       printGivenLevel(root, i);

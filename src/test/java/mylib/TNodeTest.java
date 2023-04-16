@@ -6,35 +6,39 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 public class TNodeTest {
-  
+
   @Test
-  public void testTNode() {
-    // Test the default constructor
-    TNode node1 = new TNode();
-    assertNull(node1.getLeft());
-    assertNull(node1.getRight());
-    assertNull(node1.getParent());
-    assertEquals(0, node1.getBalance());
+  public void testDefaultConstructor() {
+    TNode node = new TNode();
+    assertNull(node.getLeft());
+    assertNull(node.getRight());
+    assertNull(node.getParent());
+    assertEquals(0, node.getBalance());
+  }
 
-    // Test the parameterized constructor
-    TNode node2 = new TNode(5, 1, null, null, null);
-    assertEquals(5, node2.getData());
-    assertEquals(1, node2.getBalance());
-    assertNull(node2.getLeft());
-    assertNull(node2.getRight());
-    assertNull(node2.getParent());
+  @Test
+  public void testParameterizedConstructor() {
+    TNode node = new TNode(5, 1, null, null, null);
+    assertEquals(5, node.getData());
+    assertEquals(1, node.getBalance());
+    assertNull(node.getLeft());
+    assertNull(node.getRight());
+    assertNull(node.getParent());
+  }
 
-    // Test the setters and getters
-    node1.setData(10);
-    assertEquals(10, node1.getData());
-    node1.setBalance(-1);
-    assertEquals(-1, node1.getBalance());
-    node1.setLeft(node2);
-    assertEquals(node2, node1.getLeft());
-    node1.setParent(node2);
-    assertEquals(node2, node1.getParent());
-    node1.setRight(null);
-    assertNull(node1.getRight());
+  @Test
+  public void testSettersAndGetters() {
+    TNode node = new TNode();
+    node.setData(10);
+    assertEquals(10, node.getData());
+    node.setBalance(-1);
+    assertEquals(-1, node.getBalance());
+    node.setLeft(node);
+    assertEquals(node, node.getLeft());
+    node.setParent(node);
+    assertEquals(node, node.getParent());
+    node.setRight(null);
+    assertNull(node.getRight());
   }
 
   @Test

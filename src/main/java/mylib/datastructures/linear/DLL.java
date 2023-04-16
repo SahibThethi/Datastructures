@@ -1,6 +1,7 @@
 package mylib.datastructures.linear;
 import mylib.datastructures.nodes.*;
 
+
 public class DLL{
     protected DNode head;
     protected DNode tail;
@@ -13,6 +14,7 @@ public class DLL{
         this.size = 0;
         this.sorted = true;
     }
+
     public DLL(DNode node) {
         this.head = node;
         this.tail = node;
@@ -213,6 +215,12 @@ public class DLL{
 
     public int getSize() {
         return this.size;
+    }
+    public boolean isEmpty() {
+        if (head == null) {
+            return true;
+        }
+        return false;
     }
 
 }

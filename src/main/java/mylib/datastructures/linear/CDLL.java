@@ -1,4 +1,5 @@
 package mylib.datastructures.linear;
+
 import mylib.datastructures.nodes.*;
 
 public class CDLL extends DLL {
@@ -98,10 +99,9 @@ public class CDLL extends DLL {
 
     @Override
     public void print() {
-        System.out.print("List length: " + getLength());
-        System.out.print(", Sorted status: " + isSorted());
-        System.out.print(", Current node: " + (current == null ? "none" : current.getData()));
-        System.out.print(", List content: ");
+        System.out.println("List length: " + getLength());
+        System.out.println("Sorted status: " + isSorted());
+        System.out.print("List content: ");
         DNode curr = head;
         do {
             System.out.print(curr.getData() + " ");
@@ -172,53 +172,66 @@ public class CDLL extends DLL {
         }
     }
 
-        public void Sort() {
-            if (this.head == null) {
-                return;
-            }
-    
-            DNode curr = this.head.next;
-            while (curr != this.head) {
-                DNode temp = curr.prev;
-                while (temp != this.tail && temp.data > curr.data) {
-                    temp = temp.prev;
-                }
-                if (temp == this.tail && temp.data > curr.data) {
-                    // Insert at the tail
-                    curr.prev.next = curr.next;
-                    curr.next.prev = curr.prev;
-                    curr.prev = this.tail;
-                    curr.next = this.head;
-                    this.head.prev = curr;
-                    this.tail.next = curr;
-                    this.tail = curr;
-                    curr = curr.prev;
-                } else {
-                    // Insert before temp
-                    curr.prev.next = curr.next;
-                    curr.next.prev = curr.prev;
-                    curr.prev = temp;
-                    curr.next = temp.next;
-                    temp.next.prev = curr;
-                    temp.next = curr;
-                    curr = curr.next;
-                }
-            }
+    public void Sort() {
+        if (this.head == null) {
+            return;
         }
     
-        public boolean isSorted() {
-            if (this.head == null) {
-                return true;
+        DNode curr = this.head.next;
+        if (this.tail == null) {
+            this.tail = this.head;
+        }
+        while (curr != this.head) {
+            DNode temp = curr.prev;
+            while (temp != this.tail && temp.data > curr.data) {
+                temp = temp.prev;
             }
+            if (curr.prev != temp) { // insert only if necessary
+                // Remove the current node from its position
+                curr.prev.next = curr.next;
+                curr.next.prev = curr.prev;
     
-            DNode curr = this.head;
-            while (curr != this.tail) {
-                if (curr.data > curr.next.data) {
-                    return false;
-                }
+                // Insert the current node before temp
+                curr.next = temp.next;
+                temp.next.prev = curr;
+                curr.prev = temp;
+                temp.next = curr;
+            } else {
                 curr = curr.next;
             }
+        }
+    }
+    
+    public boolean isSorted() {
+        if (this.head == null) {
             return true;
         }
+    
+        // Check if the list is sorted in ascending order
+        DNode curr = this.head;
+        while (curr != this.tail) {
+            if (curr.data > curr.next.data) {
+                break;
+            }
+            curr = curr.next;
+        }
+        if (curr == this.tail) {
+            return true;
+        }
+    
+        // Check if the list is sorted in descending order
+        curr = this.tail;
+        while (curr != this.head) {
+            if (curr.data > curr.prev.data) {
+                break;
+            }
+            curr = curr.prev;
+        }
+        if (curr == this.head) {
+            return true;
+        }
+    
+        return false;
+    }
 }
 
