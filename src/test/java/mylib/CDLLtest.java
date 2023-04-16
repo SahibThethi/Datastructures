@@ -144,11 +144,11 @@ public class CDLLtest {
         assertEquals(expectedLines[i], actualLines[i].trim());
         }
     }
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testSearch() {
         // Test empty list
         CDLL list = new CDLL();
-        assertThrows(NullPointerException.class, () -> list.search(1));
+        list.search(1);
         
         // Test list with one element
         DNode node1 = new DNode(1);

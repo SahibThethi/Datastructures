@@ -240,14 +240,16 @@ public class CSLLtest {
         // Create an empty linked list
         CSLL list = new CSLL();
         
-        // Call the sort method on the empty list
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        // Call the sort method on the empty list and catch the expected exception
+        try {
             list.sort();
-        });
-        
-        // Check that the expected exception is thrown
-        assertEquals("List is empty", exception.getMessage());
+            fail("Expected a NullPointerException to be thrown");
+        } catch (NullPointerException expected) {
+            // Check that the expected exception is thrown with the expected error message
+            assertEquals("List is empty", expected.getMessage());
+        }
     }
+
     @Test
     public void testClear() {
         CSLL list = new CSLL();
